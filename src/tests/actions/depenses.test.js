@@ -8,6 +8,7 @@ import {
   setDepenses,
   startSetDepenses,
   startRemoveDepense,
+  startEditDepense,
 } from '../../actions/depenses';
 import depenses from '../fixtures/depenses';
 import database from '../../firebase/firebase';
@@ -57,6 +58,22 @@ test('should setup edit depense action object', () => {
       note: 'New note value',
     },
   });
+});
+
+test('should edit depense from firebase', async () => {
+  const store = createMockStore({});
+  const id = depenses[0].id;
+  const updates = { amount: 21045 };
+  await store.dispatch(startEditDepense(id, updates));
+
+  const actions = store.getActions();
+  expect(actions[0]).toEqual({
+    type: 'EDIT_DEPENSE',
+    id,
+    updates,
+  });
+  const snapshot = await database.ref(`depenses/${id}`).once('value');
+  expect(snapshot.val().amount).toBe(updates.amount);
 });
 
 test('should setup add depense action object with provided values', () => {
