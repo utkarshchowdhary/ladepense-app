@@ -5,11 +5,25 @@ import {
   addDepense,
   editDepense,
   removeDepense,
+  setDepenses,
+  startSetDepenses,
 } from '../../actions/depenses';
 import depenses from '../fixtures/depenses';
 import database from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
+
+beforeEach(async () => {
+  const depensesData = {};
+  depenses.forEach(({ id, description, note, amount, createdAt }) => {
+    depensesData[id] = { description, note, amount, createdAt };
+  });
+  await database.ref('depenses').set(depensesData);
+});
+
+afterAll(() => {
+  database.goOffline();
+});
 
 test('should setup remove depense action object', () => {
   const action = removeDepense({ id: '123abc' });
@@ -86,4 +100,24 @@ test('should add depense with defaults to database and store', async () => {
     .once('value');
 
   expect(snapshot.val()).toEqual(depenseDefaults);
+});
+
+test('should setup set depenses action object with data', () => {
+  const action = setDepenses(depenses);
+
+  expect(action).toEqual({
+    type: 'SET_DEPENSES',
+    depenses,
+  });
+});
+
+test('should fetch the depenses from the firebase', async () => {
+  const store = createMockStore({});
+  await store.dispatch(startSetDepenses());
+
+  const actions = store.getActions();
+  expect(actions[0]).toEqual({
+    type: 'SET_DEPENSES',
+    depenses,
+  });
 });
