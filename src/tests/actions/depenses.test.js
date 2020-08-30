@@ -7,6 +7,7 @@ import {
   removeDepense,
   setDepenses,
   startSetDepenses,
+  startRemoveDepense,
 } from '../../actions/depenses';
 import depenses from '../fixtures/depenses';
 import database from '../../firebase/firebase';
@@ -31,6 +32,20 @@ test('should setup remove depense action object', () => {
     type: 'REMOVE_DEPENSE',
     id: '123abc',
   });
+});
+
+test('should remove depense from firebase', async () => {
+  const store = createMockStore({});
+  const id = depenses[2].id;
+  await store.dispatch(startRemoveDepense({ id }));
+
+  const actions = store.getActions();
+  expect(actions[0]).toEqual({
+    type: 'REMOVE_DEPENSE',
+    id,
+  });
+  const snapshot = await database.ref(`depenses/${id}`).once('value');
+  expect(snapshot.val()).toBeFalsy();
 });
 
 test('should setup edit depense action object', () => {
