@@ -6,11 +6,11 @@ import DepenseForm from './DepenseForm';
 export class EditDepensePage extends React.Component {
   onSubmit = (depense) => {
     this.props.startEditDepense(this.props.depense.id, depense);
-    this.props.history.push('/');
+    this.props.history.push('/dashboard');
   };
   onRemove = () => {
     this.props.startRemoveDepense(this.props.depense.id);
-    this.props.history.push('/');
+    this.props.history.push('/dashboard');
   };
   render() {
     return (

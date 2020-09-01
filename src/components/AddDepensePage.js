@@ -6,7 +6,7 @@ import DepenseForm from './DepenseForm';
 export class AddDepensePage extends React.Component {
   onSubmit = (depense) => {
     this.props.startAddDepense(depense);
-    this.props.history.push('/');
+    this.props.history.push('/dashboard');
   };
   render() {
     return (
