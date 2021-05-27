@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import AppRouter, { history } from './routers/AppRouter';
+import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startSetDepenses } from './actions/depenses';
 import { login, logout } from './actions/auth';
@@ -29,18 +29,12 @@ const renderApp = () => {
   }
 };
 
-firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged(async (user) => {
   if (user) {
     store.dispatch(login(user.uid));
-    store.dispatch(startSetDepenses()).then(() => {
-      renderApp();
-      if (history.location.pathname === '/') {
-        history.push('/dashboard');
-      }
-    });
+    await store.dispatch(startSetDepenses());
   } else {
     store.dispatch(logout());
-    renderApp();
-    history.push('/');
   }
+  renderApp();
 });
