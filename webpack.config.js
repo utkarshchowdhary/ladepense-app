@@ -2,8 +2,6 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: 'config/dev.env' });
 }
@@ -63,6 +61,7 @@ module.exports = (env) => {
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
       publicPath: '/dist/',
+      open: true,
     },
   };
 };
