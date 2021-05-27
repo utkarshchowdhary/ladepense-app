@@ -1,6 +1,5 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import DepenseDashboardPage from '../components/DepenseDashboardPage';
 import AddDepensePage from '../components/AddDepensePage';
 import EditDepensePage from '../components/EditDepensePage';
@@ -9,10 +8,8 @@ import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
-export const history = createHistory();
-
 const AppRouter = () => (
-  <Router history={history}>
+  <Router>
     <div>
       <Switch>
         <PublicRoute path="/" component={LoginPage} exact={true} />
