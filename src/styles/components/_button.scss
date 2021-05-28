@@ -1,7 +1,7 @@
 .button {
   background: $blue;
   border: none;
-  color: white;
+  color: #fff;
   display: inline-block;
   font-size: $font-size-large;
   font-weight: 300;
@@ -12,6 +12,12 @@
 
 .button--link {
   background: none;
+  border: 0.1rem solid #fff;
+
+  &:hover {
+    background: #fff;
+    color: $midnight-blue;
+  }
 }
 
 .button--secondary {

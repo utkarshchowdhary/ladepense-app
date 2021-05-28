@@ -1,25 +1,25 @@
-const depensesReducerDefaultState = [];
+const depensesReducerDefaultState = []
 
 export default (state = depensesReducerDefaultState, action) => {
   switch (action.type) {
     case 'ADD_DEPENSE':
-      return [...state, action.depense];
+      return [...state, action.depense]
     case 'REMOVE_DEPENSE':
-      return state.filter(({ id }) => id !== action.id);
+      return state.filter(({ id }) => id !== action.id)
     case 'EDIT_DEPENSE':
-      return state.map((depense) => {
+      return state.map(depense => {
         if (depense.id === action.id) {
           return {
             ...depense,
-            ...action.updates,
-          };
+            ...action.updates
+          }
         } else {
-          return depense;
+          return depense
         }
-      });
+      })
     case 'SET_DEPENSES':
-      return action.depenses;
+      return action.depenses
     default:
-      return state;
+      return state
   }
-};
+}

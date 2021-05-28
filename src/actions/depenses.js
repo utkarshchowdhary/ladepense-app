@@ -1,75 +1,75 @@
-import database from '../firebase/firebase';
+import database from '../firebase/firebase'
 
-export const addDepense = (depense) => ({
+export const addDepense = depense => ({
   type: 'ADD_DEPENSE',
-  depense,
-});
+  depense
+})
 
 export const startAddDepense = (depenseData = {}) => {
   return async (dispatch, getState) => {
-    const uid = getState().auth.uid;
+    const uid = getState().auth.uid
     const {
       description = '',
       note = '',
       amount = 0,
-      createdAt = 0,
-    } = depenseData;
-    const depense = { description, note, amount, createdAt };
+      createdAt = 0
+    } = depenseData
+    const depense = { description, note, amount, createdAt }
 
-    const ref = await database.ref(`users/${uid}/depenses`).push(depense);
+    const ref = await database.ref(`users/${uid}/depenses`).push(depense)
     dispatch(
       addDepense({
         id: ref.key,
-        ...depense,
+        ...depense
       })
-    );
-  };
-};
+    )
+  }
+}
 
 export const removeDepense = ({ id } = {}) => ({
   type: 'REMOVE_DEPENSE',
-  id,
-});
+  id
+})
 
 export const startRemoveDepense = ({ id } = {}) => {
   return async (dispatch, getState) => {
-    const uid = getState().auth.uid;
-    await database.ref(`users/${uid}/depenses/${id}`).remove();
-    dispatch(removeDepense({ id }));
-  };
-};
+    const uid = getState().auth.uid
+    await database.ref(`users/${uid}/depenses/${id}`).remove()
+    dispatch(removeDepense({ id }))
+  }
+}
 
 export const editDepense = (id, updates) => ({
   type: 'EDIT_DEPENSE',
   id,
-  updates,
-});
+  updates
+})
 
 export const startEditDepense = (id, updates) => {
   return async (dispatch, getState) => {
-    const uid = getState().auth.uid;
-    await database.ref(`users/${uid}/depenses/${id}`).update(updates);
-    dispatch(editDepense(id, updates));
-  };
-};
+    const uid = getState().auth.uid
+    await database.ref(`users/${uid}/depenses/${id}`).update(updates)
+    dispatch(editDepense(id, updates))
+  }
+}
 
-export const setDepenses = (depenses) => ({
+export const setDepenses = depenses => ({
   type: 'SET_DEPENSES',
-  depenses,
-});
+  depenses
+})
 
 export const startSetDepenses = () => {
   return async (dispatch, getState) => {
-    const uid = getState().auth.uid;
-    const snapshot = await database.ref(`users/${uid}/depenses`).once('value');
-    const depenses = [];
+    const uid = getState().auth.uid
+    const snapshot = await database.ref(`users/${uid}/depenses`).once('value')
+    const depenses = []
 
-    snapshot.forEach((childSnapshot) => {
+    snapshot.forEach(childSnapshot => {
       depenses.push({
         id: childSnapshot.key,
-        ...childSnapshot.val(),
-      });
-    });
-    dispatch(setDepenses(depenses));
-  };
-};
+        ...childSnapshot.val()
+      })
+    })
+    dispatch(setDepenses(depenses))
+  }
+}

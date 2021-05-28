@@ -1,7 +1,7 @@
-import React from 'react';
-import DepenseList from './DepenseList';
-import DepenseListFilters from './DepenseListFilters';
-import DepensesSummary from './DepensesSummary';
+import React from 'react'
+import DepenseList from './DepenseList'
+import DepenseListFilters from './DepenseListFilters'
+import DepensesSummary from './DepensesSummary'
 
 const DepenseDashboardPage = () => (
   <div>
@@ -9,6 +9,6 @@ const DepenseDashboardPage = () => (
     <DepenseListFilters />
     <DepenseList />
   </div>
-);
+)
 
-export default DepenseDashboardPage;
+export default DepenseDashboardPage

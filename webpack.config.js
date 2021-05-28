@@ -1,19 +1,19 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack');
+const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
 
 if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config({ path: 'config/dev.env' });
+  require('dotenv').config({ path: 'config/dev.env' })
 }
 
-module.exports = (env) => {
-  const isProduction = env === 'production';
+module.exports = env => {
+  const isProduction = env === 'production'
 
   return {
     entry: ['@babel/polyfill', './src/app.js'],
     output: {
       path: path.join(__dirname, 'public', 'dist'),
-      filename: 'bundle.js',
+      filename: 'bundle.js'
     },
     mode: isProduction ? 'production' : 'development',
     module: {
@@ -21,17 +21,17 @@ module.exports = (env) => {
         {
           loader: 'babel-loader',
           test: /\.js$/,
-          exclude: /node_modules/,
+          exclude: /node_modules/
         },
         {
           test: /\.s?css$/,
           use: [
             MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { url: false, sourceMap: true } },
-            { loader: 'sass-loader', options: { sourceMap: true } },
-          ],
-        },
-      ],
+            { loader: 'sass-loader', options: { sourceMap: true } }
+          ]
+        }
+      ]
     },
     plugins: [
       new MiniCssExtractPlugin(),
@@ -53,15 +53,15 @@ module.exports = (env) => {
         ),
         'process.env.FIREBASE_MESSAGING_SENDER_ID': JSON.stringify(
           process.env.FIREBASE_MESSAGING_SENDER_ID
-        ),
-      }),
+        )
+      })
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
       publicPath: '/dist/',
-      open: true,
-    },
-  };
-};
+      open: true
+    }
+  }
+}

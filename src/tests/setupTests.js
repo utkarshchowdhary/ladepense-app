@@ -1,9 +1,9 @@
-import 'regenerator-runtime/runtime';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import Dotenv from 'dotenv';
+import 'regenerator-runtime/runtime'
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+import Dotenv from 'dotenv'
 
-Dotenv.config({ path: 'config/test.env' });
+Dotenv.config({ path: 'config/test.env' })
 Enzyme.configure({
-  adapter: new Adapter(),
-});
+  adapter: new Adapter()
+})

@@ -1,5 +1,5 @@
-export default (depenses) => {
+export default depenses => {
   return depenses
-    .map((depense) => depense.amount)
-    .reduce((sum, value) => sum + value, 0);
-};
+    .map(depense => depense.amount)
+    .reduce((sum, value) => sum + value, 0)
+}
