@@ -18,10 +18,10 @@ export class AppRouter extends React.Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    this.unsubscribe = firebase.auth().onAuthStateChanged(async user => {
       if (user) {
         this.props.login(user.uid)
-        this.props.startSetDepenses()
+        await this.props.startSetDepenses()
       } else {
         this.props.logout()
       }
