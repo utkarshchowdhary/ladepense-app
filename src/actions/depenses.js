@@ -1,19 +1,18 @@
-import database from '../firebase/firebase'
+import { database } from '../firebase/firebase'
 
 export const addDepense = depense => ({
   type: 'ADD_DEPENSE',
   depense
 })
 
-export const startAddDepense = (depenseData = {}) => {
+export const startAddDepense = ({
+  description = '',
+  note = '',
+  amount = 0,
+  createdAt = 0
+} = {}) => {
   return async (dispatch, getState) => {
     const uid = getState().auth.uid
-    const {
-      description = '',
-      note = '',
-      amount = 0,
-      createdAt = 0
-    } = depenseData
     const depense = { description, note, amount, createdAt }
 
     const ref = await database.ref(`users/${uid}/depenses`).push(depense)
@@ -26,16 +25,16 @@ export const startAddDepense = (depenseData = {}) => {
   }
 }
 
-export const removeDepense = ({ id } = {}) => ({
+export const removeDepense = id => ({
   type: 'REMOVE_DEPENSE',
   id
 })
 
-export const startRemoveDepense = ({ id } = {}) => {
+export const startRemoveDepense = id => {
   return async (dispatch, getState) => {
     const uid = getState().auth.uid
     await database.ref(`users/${uid}/depenses/${id}`).remove()
-    dispatch(removeDepense({ id }))
+    dispatch(removeDepense(id))
   }
 }
 

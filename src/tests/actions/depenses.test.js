@@ -11,7 +11,7 @@ import {
   startEditDepense
 } from '../../actions/depenses'
 import depenses from '../fixtures/depenses'
-import database from '../../firebase/firebase'
+import { database } from '../../firebase/firebase'
 
 const uid = 'thisismytestuid'
 const defaultAuthState = { auth: { uid } }
@@ -30,7 +30,7 @@ afterAll(() => {
 })
 
 test('should setup remove depense action object', () => {
-  const action = removeDepense({ id: '123abc' })
+  const action = removeDepense('123abc')
   expect(action).toEqual({
     type: 'REMOVE_DEPENSE',
     id: '123abc'
@@ -40,7 +40,7 @@ test('should setup remove depense action object', () => {
 test('should remove depense from firebase', async () => {
   const store = createMockStore(defaultAuthState)
   const id = depenses[2].id
-  await store.dispatch(startRemoveDepense({ id }))
+  await store.dispatch(startRemoveDepense(id))
 
   const actions = store.getActions()
   expect(actions[0]).toEqual({

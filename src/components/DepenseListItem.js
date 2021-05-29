@@ -11,7 +11,7 @@ const DepenseListItem = ({ id, description, amount, createdAt }) => (
         {moment(createdAt).format('MMMM Do, YYYY')}
       </span>
     </div>
-    <h3 className='list-item__data'>
+    <h3 className='list-item__price'>
       {numeral(amount / 100).format('$0,0.00')}
     </h3>
   </Link>

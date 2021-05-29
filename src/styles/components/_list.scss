@@ -27,10 +27,10 @@
     background: $light-blue;
   }
   @media (min-width: $edge-breakpoint) {
-    align-items: center;
-    justify-content: space-between;
     flex-direction: row;
     padding: $m-size;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 
@@ -53,7 +53,7 @@
   font-size: $font-size-small;
 }
 
-.list-item__data {
+.list-item__price {
   margin: $s-size 0 0 0;
   @media (min-width: $edge-breakpoint) {
     margin: 0;

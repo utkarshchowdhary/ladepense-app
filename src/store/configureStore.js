@@ -5,7 +5,7 @@ import filtersReducer from '../reducers/filters'
 import authReducer from '../reducers/auth'
 
 export default () => {
-  const store = createStore(
+  return createStore(
     combineReducers({
       depenses: depensesReducer,
       filters: filtersReducer,
@@ -13,6 +13,4 @@ export default () => {
     }),
     applyMiddleware(thunk)
   )
-
-  return store
 }

@@ -19,7 +19,7 @@ const addDepense = ({
 })
 
 // REMOVE_DEPENSE
-const removeDepense = ({ id } = {}) => ({
+const removeDepense = id => ({
   type: 'REMOVE_DEPENSE',
   id
 })
@@ -60,9 +60,7 @@ const setEndDate = endDate => ({
 })
 
 // Depenses Reducer
-const depensesReducerDefaultState = []
-
-const depensesReducer = (state = depensesReducerDefaultState, action) => {
+const depensesReducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_DEPENSE':
       return [...state, action.depense]
@@ -84,15 +82,16 @@ const depensesReducer = (state = depensesReducerDefaultState, action) => {
   }
 }
 
-// Filters Depense
-const filtersReducerDefaultState = {
-  text: '',
-  sortBy: 'date',
-  startDate: undefined,
-  endDate: undefined
-}
-
-const filtersReducer = (state = filtersReducerDefaultState, action) => {
+// Filters Reducer
+const filtersReducer = (
+  state = {
+    text: '',
+    sortBy: 'date',
+    startDate: undefined,
+    endDate: undefined
+  },
+  action
+) => {
   switch (action.type) {
     case 'SET_TEXT_FILTER':
       return {
@@ -157,8 +156,9 @@ const store = createStore(
   })
 )
 
+// Store listener, it is called any time an action is dispatched and some part of the state has changed.
 store.subscribe(() => {
-  const state = store.getState()
+  const state = store.getState() // returns current state
   const visibleDepenses = getVisibleDepenses(state.depenses, state.filters)
   console.log(visibleDepenses)
 })
@@ -170,7 +170,7 @@ const depenseTwo = store.dispatch(
   addDepense({ description: 'Coffee', amount: 300, createdAt: 2000 })
 )
 
-// store.dispatch(removeDepense({ id: depenseOne.depense.id }));
+// store.dispatch(removeDepense(depenseOne.depense.id));
 // store.dispatch(editDepense(depenseTwo.depense.id, { amount: 500 }));
 
 // store.dispatch(setTextFilter('ffe'));
@@ -179,24 +179,6 @@ const depenseTwo = store.dispatch(
 // store.dispatch(sortByAmount());
 // store.dispatch(sortByDate());
 
-// store.dispatch(setStartDate(0)); // startDate 125
-// store.dispatch(setStartDate()); // startDate undefined
-// store.dispatch(setEndDate(999)); // endDate 1250
-
-const exampleState = {
-  depenses: [
-    {
-      id: 'poijasdfhwer',
-      description: 'January Rent',
-      note: 'This was the final payment for that address',
-      amount: 54500,
-      createdAt: 0
-    }
-  ],
-  filters: {
-    text: 'rent',
-    sortBy: 'data',
-    startDate: undefined,
-    endDate: undefined
-  }
-}
+// store.dispatch(setStartDate(0));
+// store.dispatch(setStartDate());
+// store.dispatch(setEndDate(999));
